@@ -1,0 +1,15 @@
+{
+    "Version": " 2012-10-17",
+    "Statement" : [
+        {
+            "Effect": "Allow",
+            "Action": ["s3:ListBucket"],
+            "Resource": "arn:Aws:s3:::nyc-mobility-copilot-ms-15aug"
+        },
+        {
+            "Effect": "Allow",
+            "Action": ["s3:GetObject", "s3:PutObject", "s3:DeleteObject"],
+            "Resource": "arn:Aws:s3:::nyc-mobility-copilot-ms-15aug/*"
+        }
+    ]
+}

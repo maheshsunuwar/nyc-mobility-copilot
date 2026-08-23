@@ -28,7 +28,7 @@ def poll_and_produce():
         producer.send(TOPIC, key=station['station_id'], value=station)
         count+=1
 
-    producer.flush()
+    producer.flush() 
     print(f"Produced {count} station events at {fetched_at}")
 
 if __name__ == '__main__':
