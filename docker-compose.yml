@@ -15,3 +15,17 @@ services:
       - --node-id=0
       - --kafka-addr=PLAINTEXT://0.0.0.0:9092
       - --advertise-kafka-addr=PLAINTEXT://localhost:9092
+  postgres:
+    image: postgres:16
+    container_name: mobility_postgres
+    environment:
+      POSTGRES_USER: mobility
+      POSTGRES_PASSWORD: mobility_dev_pw
+      POSTGRES_DB: mobility_warehouse
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:

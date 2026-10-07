@@ -9,7 +9,7 @@ def get_s3_spark_session(app_name: str) -> SparkSession:
     spark = (
         SparkSession.builder
         .appName("")
-        .config("spark.jars.packages","org.apache.hadoop:hadoop-aws:3.5.0")
+        .config("spark.jars.packages","org.apache.hadoop:hadoop-aws:3.5.0,org.postgresql:postgresql:42.7.4")
         .config("spark.hadoop.fs.s3a.access.key", creds.access_key)
         .config("spark.hadoop.fs.s3a.secret.key", creds.secret_key)
         .config("spark.hadoop.fs.s3a.aws.credentials.provider", "org.apache.hadoop.fs.s3a.SimpleAWSCredentialsProvider")

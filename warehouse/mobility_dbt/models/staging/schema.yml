@@ -1,0 +1,17 @@
+version: 2
+
+models:
+  - name: stg_trips_by_hour_zone
+    columns:
+      - name: taxi_type
+        tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: ['yellow', 'green']
+      - name: trip_count
+        tests:
+          - not_null
+      - name: pickup_hour
+        tests:
+          - not_null

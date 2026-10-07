@@ -1,0 +1,7 @@
+version: 2
+
+sources:
+  - name: mobility_warehouse
+    schema: public
+    tables:
+      - name: trips_by_hour_zone
