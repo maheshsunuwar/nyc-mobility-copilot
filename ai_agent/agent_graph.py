@@ -168,19 +168,7 @@ def should_retry(state: AgentState) -> str:
     if state['retry_count'] >= 3:
         return 'give_up'
 
-if __name__ == "__main__":
-    import sys
-    question = sys.argv[1] if len(sys.argv) > 1 else "Which hour is the busiest for taxi pickups overall?"
-
-    initial_state: AgentState = {
-        "question": question,
-        "schema": "",
-        "sql": None,
-        "result": None,
-        "error": None,
-        "retry_count": 0,
-        "answer": None
-    }
+def build_agent():
     graph = StateGraph(AgentState)
     graph.add_node("get_schema", get_schema_node)
     graph.add_node("generate_sql", generate_sql_node)
@@ -213,9 +201,20 @@ if __name__ == "__main__":
     graph.add_edge("refuse", END)
     graph.add_edge("generate_response", END)
 
-    app = graph.compile()
+    return graph.compile()
 
-    final = app.invoke(initial_state)
+def ask(agent, question: str) -> AgentState:
+    # a brand-new state dict on every call, so requests can never leak into each other
+    return agent.invoke({
+        "question": question, "schema": "", "sql": None, "result": None,
+        "error": None, "retry_count": 0, "answer": None,
+    })
+
+if __name__ == "__main__":
+    import sys
+    question = sys.argv[1] if len(sys.argv) > 1 else "Which hour is the busiest for taxi pickups overall?"
+
+    final = ask(build_agent(), question=question)
     print("SQL:   ", final["sql"])
     print("Retries:", final["retry_count"])
     print("Answer:", final["answer"])
